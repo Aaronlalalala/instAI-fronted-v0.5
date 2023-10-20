@@ -137,6 +137,9 @@ function TxtPage() {
               <NavLink to="/IMGtoIMG">
                   <button>ImgPage</button>
                </NavLink>
+               <NavLink to="/CatchTXT">
+                 <button>see the product of image</button>
+               </NavLink>
             </span>
           </div>
         </div>

@@ -5,15 +5,15 @@ import axios from 'axios';
 function Download2() {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
-  const [username, setUsername] = useState(""); // 用户名
-  const [filename, setFilename] = useState(""); // 文件名
+  const [username, setUsername] = useState(""); 
+  const [filename, setFilename] = useState(""); 
 
-  // 文件选择
+  // 文件選擇
   const handleFileSelect = async (event) => {
     const files = event.target.files;
     const fileArray = Array.from(files);
 
-    // 过滤文件
+    // 過濾文件
     const allowedFileTypes = ['image/jpeg', 'image/png'];
     const filteredFiles = fileArray.filter((file) =>
       allowedFileTypes.includes(file.type)

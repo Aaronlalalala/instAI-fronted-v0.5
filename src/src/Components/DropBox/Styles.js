@@ -11,7 +11,7 @@ function Styles({ value, onChange }) {
 
   const handleOptionClick = (value) => {
     setSelectedValue(value);
-    onChange(value); // 呼叫父元件
+    onChange(value); 
     toggleDropdown();
   };
 
