@@ -1,17 +1,21 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { useState } from "react";  // 修改R
 import Login from "./Components/Login/Login";
 import Register from "./Components/Register/Register";
-import MainPage from "./Components/mainPage/MainPage";
+import MainPage from "./Nevigation/mainPage/MainPage";
 import Upload from "./Components/Upload/Upload";
 import Viewupload from "./Components/Upload/Viewupload";
 import Bin from "./Components/Upload/Bin";
-import IMGtoIMG from "./Components/img2img/IMGtoIMG";
-import TXTtoIMG from "./Components/txt2txt/TXTtoIMG";
+import IMGtoIMG from "./StableDiffusion/img2img/IMGtoIMG";
+import TXTtoIMG from "./StableDiffusion/txt2txt/TXTtoIMG";
 import Download2 from "./Components/Download2/Download";
-import CatchTXT from "./Components/CatchTXT/CatchTXT";
-import Catchimg from "./Components/CatchIMG/Catchimg";
+import CatchTXT from "./StableDiffusion/CatchTXT/CatchTXT";
+import Catchimg from "./StableDiffusion/CatchIMG/Catchimg";
+import Project  from "./Nevigation/ProjectPage/Project";
+import Datapage from "./Nevigation/DataPage/Data";
+import Overview from "./Nevigation/OverviewPage/Overview";
+import Model    from "./Nevigation/ModelPage/Model";
 
 function App() {
   const [userstate, setUserState] = useState({});
@@ -19,6 +23,7 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
+
           <Route path="/" element={<Register/>}></Route>
           <Route path="/MainPage" element={<MainPage/>}></Route>
           <Route path="/login" element={<Login setUserState={setUserState} />}></Route>
@@ -30,6 +35,10 @@ function App() {
           <Route path="/IMGtoIMG" element={<IMGtoIMG/>}></Route>
           <Route path="/CatchTXT" element={<CatchTXT/>}></Route>
           <Route path="/Catchimg" element={<Catchimg/>}></Route>
+          <Route path="/Project" element={<Project/>}></Route>
+          <Route path="/Datapage" element={<Datapage/>}></Route>
+          <Route path="/Overview" element={<Overview/>}></Route>
+
         </Routes>
       </Router>
     </div>

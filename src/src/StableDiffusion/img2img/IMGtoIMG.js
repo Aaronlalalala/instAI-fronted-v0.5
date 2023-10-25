@@ -1,28 +1,28 @@
 import React, { useState } from "react";
 import "./IMG.css";
-import CheckPoint from "../DropBox/CheckPoint";
-import Prompt from "../Prompt/Prompt";
-import NegativePrompt from "../Prompt/NegativePrompt";
-import Generate from "../Button/Generate";
-import IntergrateCLIP from '../Button/IntergrateCLIP';
-import DeepBooru from '../Button/DeepBooru';
-import SamplingMethod from "../DropBox/SamplingMethod";
-import SamplingStep from "../Slider/SamplingStep";
-import RestoreFaces from "../CheckBox/RestoreFaces";
-import Tilling from "../CheckBox/Tilling";
-import Width from "../Slider/Width";
-import Height from "../Slider/Height";
-import BatchCount from "../Slider/BatchCount";
-import BatchSize from "../Slider/BatchSize";
-import CFGScale from "../Slider/CFGScale";
-import Seed from "../Slider/Seed";
-import Script from "../ForScript/Script"; //Alwayson scripts
+import CheckPoint from "../../Components/DropBox/CheckPoint";
+import Prompt from "../../Components/Prompt/Prompt";
+import NegativePrompt from "../../Components/Prompt/NegativePrompt";
+import Generate from "../../Components/Button/Generate";
+import IntergrateCLIP from '../../Components/Button/IntergrateCLIP';
+import DeepBooru from '../../Components/Button/DeepBooru';
+import SamplingMethod from "../../Components/DropBox/SamplingMethod";
+import SamplingStep from "../../Components/Slider/SamplingStep";
+import RestoreFaces from "../../Components/CheckBox/RestoreFaces";
+import Tilling from "../../Components/CheckBox/Tilling";
+import Width from "../../Components/Slider/Width";
+import Height from "../../Components/Slider/Height";
+import BatchCount from "../../Components/Slider/BatchCount";
+import BatchSize from "../../Components/Slider/BatchSize";
+import CFGScale from "../../Components/Slider/CFGScale";
+import Seed from "../../Components/Slider/Seed";
+import Script from "../../Components/ForScript/Script"; //Alwayson scripts
 import axios from 'axios'; 
 import { NavLink } from "react-router-dom";
-import ResizeMode from "../DropBox/ResizeMode"; 
-import DenoisingS2 from "../ForHireFix/DenoisingS2";
-import ForScript from "../ForScript/ForScript";
-import ImageUploader from "../imgjson/ImageUploader";
+import ResizeMode from "../../Components/DropBox/ResizeMode"; 
+import DenoisingS2 from "../../Components/ForHireFix/DenoisingS2";
+import ForScript from "../../Components/ForScript/ForScript";
+import ImageUploader from "../../Components/imgjson/ImageUploader";
 
 function ImgPage() {
   const [images, setImages] = useState([]);
