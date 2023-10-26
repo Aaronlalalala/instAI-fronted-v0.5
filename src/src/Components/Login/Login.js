@@ -12,8 +12,8 @@ const Login = ({ setUserState }) => {
     email: "",
     password: "",
   });
+  const [userid, setuserid] = useState(null); // 添加 setuserid 状态
 
-  // 使用useState管理組件 表單錯誤,遞交,使用者
   const changeHandler = (e) => {
     const { name, value } = e.target;
     setUserDetails((prevUser) => ({
@@ -21,6 +21,7 @@ const Login = ({ setUserState }) => {
       [name]: value,
     }));
   };
+
   const validateForm = (values) => {
     const error = {};
     const regex = /^[^\s+@]+@[^\s@]+\.[^\s@]{2,}$/i;
@@ -37,13 +38,8 @@ const Login = ({ setUserState }) => {
 
   const loginHandler = (e) => {
     e.preventDefault();
-    //const errors = validateForm(user);
-    //setFormErrors(errors);
     setFormErrors(validateForm(user));
     setIsSubmit(true);
-    // if (Object.keys(formErrors).length === 0) {
-    //  setIsSubmit(true);
-    //}
   };
 
   useEffect(() => {
@@ -53,17 +49,18 @@ const Login = ({ setUserState }) => {
         .post("http://localhost:8080/api/account/login", user)
         .then((res) => {
           alert("Log in Success!");
-          if (res.data == "Success") {
+          if (res.data === "Success") {
             setUserState(res.data.user);
             const remove = "Success";
-            const id = res.data.replace(remove,"")
+            const id = res.data.replace(remove, "");
             setuserid(id);
             console.log(id);
-            navigate("/MainPage", { state: id , replace: true });
+            navigate("/MainPage", { state: id, replace: true });
           }
         });
     }
-  }, [formErrors]);
+  }, [formErrors, isSubmit]);
+
   return (
     <Fragment>
       <div className={loginstyle.container}>
@@ -106,4 +103,5 @@ const Login = ({ setUserState }) => {
     </Fragment>
   );
 };
+
 export default Login;
