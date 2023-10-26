@@ -49,13 +49,13 @@ const Login = ({ setUserState }) => {
         .post("http://localhost:8080/api/account/login", user)
         .then((res) => {
           alert("Log in Success!");
-          if (res.data === "Success") {
+          if (res.data.includes("Success")) {
             setUserState(res.data.user);
             const remove = "Success";
             const id = res.data.replace(remove, "");
             setuserid(id);
             console.log(id);
-            navigate("/MainPage", { state: id, replace: true });
+            navigate("/Project", { state: id, replace: true });
           }
         });
     }

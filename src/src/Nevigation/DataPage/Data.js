@@ -74,6 +74,7 @@ function DataPage() {
             <li style={{ color: "white" }}> Data </li>
             <li><NavLink to="/Device">Device</NavLink></li>
             <li><NavLink to="/Model">Model</NavLink></li>
+            <li><NavLink to="/MainPage">function page</NavLink></li>
           </ul>
         </div>
       </div>

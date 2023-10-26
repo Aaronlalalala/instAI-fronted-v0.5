@@ -11,6 +11,7 @@ function Device() {
           <li><NavLink to="/DataPage">Data</NavLink></li>
           <li style={{color:"White"}}>Device</li>
           <li><NavLink to="/Model">Model</NavLink></li>
+          <li><NavLink to="/MainPage">function page</NavLink></li>
         </ul>
       </div>
       <div className="content">
