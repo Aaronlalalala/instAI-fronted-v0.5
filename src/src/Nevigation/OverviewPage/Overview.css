@@ -29,7 +29,7 @@
     text-decoration: none;
     font-weight: bold;
     display: block;
-    transition: background 0.3s;
+    transition: background 0.3s;  
   }
   
   .progress-bar a:hover {

@@ -17,7 +17,7 @@ import Datapage from "./Nevigation/DataPage/Data";
 import Overview from "./Nevigation/OverviewPage/Overview";
 import Model    from "./Nevigation/ModelPage/Model";
 import CreatePage from "./Nevigation/CreatePage/Create";
-
+import Device from "./Nevigation/Device/Device";
 
 function App() {
   const [userstate, setUserState] = useState({});
@@ -42,6 +42,7 @@ function App() {
           <Route path="/Overview" element={<Overview/>}></Route>
           <Route path="/Model" element={<Model/>}></Route>
           <Route path="/CreatePage" element={<CreatePage/>}></Route>
+          <Route path="/Device" element={<Device/>}></Route>
 
         </Routes>
       </Router>
