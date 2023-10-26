@@ -52,10 +52,14 @@ const Login = ({ setUserState }) => {
       axios
         .post("http://localhost:8080/api/account/login", user)
         .then((res) => {
-          alert(res.data);
+          alert("Log in Success!");
           if (res.data == "Success") {
             setUserState(res.data.user);
-            navigate("/MainPage", { replace: true });
+            const remove = "Success";
+            const id = res.data.replace(remove,"")
+            setuserid(id);
+            console.log(id);
+            navigate("/MainPage", { state: id , replace: true });
           }
         });
     }

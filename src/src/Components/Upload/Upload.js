@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-
+import { useLocation } from 'react-router-dom';
 const MAX_COUNT = 5;
 
-function App() {
-
+function Upload() {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const id = searchParams.get('id');
 	const [uploadedFiles, setUploadedFiles] = useState([])
     const [fileLimit, setFileLimit] = useState(false);
 
@@ -33,7 +35,7 @@ function App() {
           formData.append('file', uploaded[i]);
         }
         
-        axios.post(`http://localhost:8080/api/upload/upload?username=${"${username}"}`, formData)
+        axios.post(`http://localhost:8080/api/upload/upload?username=${id}`, formData)
         .then(response => {
           console.log(response.data);
           // Handle success
@@ -76,4 +78,4 @@ function App() {
 	);
 }
 
-export default App;
+export default Upload;

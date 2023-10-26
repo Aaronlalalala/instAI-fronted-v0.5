@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import loginstyle from "./Download.module.css";
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 function Download2() {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const id = searchParams.get('id');
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
   const [username, setUsername] = useState(""); 
@@ -18,47 +22,13 @@ function Download2() {
     const filteredFiles = fileArray.filter((file) =>
       allowedFileTypes.includes(file.type)
     );
+    // Extract file names from filtered files
+    const fileNames = filteredFiles.map((file) => file.name);
 
+    // Set the file names in the state
+    setFilename(fileNames);
     // Add the selected files to the state
     setSelectedFiles(filteredFiles);//add
-    setUsername("${username}");//add
-    const user_name="${username}"
-    selectedFiles.forEach((file)=>{
-      setFilename(file.name);//add
-      try {
-        // 发送请求到URL
-        console.log(file.name);
-        console.log('发送请求到URL:',file.name, 'http://localhost:8080/api/upload/download');//?filename=${filename}&username=${username}
-        // const response = await fetch('http://localhost:8080/api/upload/download', {
-        //   method: 'GET',
-        //   body: formData,
-        // });
-        axios.get(`http://localhost:8080/api/upload/download?filename=${file.name}&username=${user_name}`, { responseType: 'blob' })
-          .then(response => {
-            console.log(response.data);
-            // Handle success
-            alert('download success')
-            // Get the filename from the custom header (X-Filename)
-            //const downloadedFilename = response.headers['x-filename'];
-  
-            const url = window.URL.createObjectURL(new Blob([response.data]));
-            const a = document.createElement('a');
-            a.href = url;
-            a.setAttribute("download",file.name);
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-          })
-          .catch(error => {
-            console.error(error);
-            console.error('文件上傳失敗');
-            // Handle error
-          });
-      } catch (error) {
-        console.error('发生错误:', error);
-      }
-  
-    });
 
     // 使用formData
     // const formData = new FormData();
@@ -75,7 +45,7 @@ function Download2() {
       //   method: 'GET',
       //   body: formData,
       // });
-      axios.get(`http://localhost:8080/api/upload/download?filename=${filename}&username=${username}`, { responseType: 'blob' })
+      axios.get(`http://localhost:8080/api/upload/download?filename=${fileNames}&username=${id}`, { responseType: 'blob' })
         .then(response => {
           console.log(response.data);
           // Handle success

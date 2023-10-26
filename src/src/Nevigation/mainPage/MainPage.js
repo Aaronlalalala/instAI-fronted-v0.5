@@ -1,8 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import Mainstyle from "./MainPage.module.css";
+import { useLocation } from 'react-router-dom';
 
 function MainPage(){
+    const location = useLocation();
+    const userid = location.state;
     return(
     <div style={{display:"flex",flexDirection:"row",justifyContent:"center"}}> 
         <div className={Mainstyle.login}>
@@ -11,11 +14,11 @@ function MainPage(){
                 Provide the function of uploading images and downloading images
             </div>
             <span style ={{position:'relative',top:"60px",right:'80px'}}>
-                <NavLink to="/Upload"> upload image</NavLink>
+                <NavLink to={`/Upload?id=${userid}`}> upload image</NavLink>
             </span>
             <br/>
             <span style ={{position:'relative',top:"60px",right:'80px'}}>
-                <NavLink to="/Download2"> download image</NavLink>
+                <NavLink to={`/Download2?id=${userid}`}> download image</NavLink>
             </span>
         </div>
         <div className={Mainstyle.login}>
