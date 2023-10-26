@@ -4,7 +4,7 @@
 2. create project : 當專案page選擇新增專案時，客戶可以在這裡面命名，左上角有可以跳回專案頁面的按鈕，
   (1)此外可以在這裡輸入device的serial number,device name 或者可以讓使用者增加device => 多個device並行
   (2) 或者先選擇跳過 不要設定device的設定
-3. schedule page : 會在左邊顯示四個選擇進度選項 overview , data , device , model 進度條佔據約略左邊15%的page  
+3. mainPage : 會在左邊顯示四個選擇進度選項 overview , data , device , model 進度條佔據約略左邊15%的page  
 在一開始剛創立好page，右邊的overview是空圖 => 先從空白開始就可以 之後換成空白圖片的示意圖
 4. data page : 在這邊可以上傳圖片 可以從自身裝置上傳 或者從使用者的register空間抓需要使用的圖片 
 => (1)具有可以多個dataset 的並列資料圖檔庫
