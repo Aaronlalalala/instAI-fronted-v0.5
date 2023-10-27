@@ -18,7 +18,7 @@ import Overview from "./Nevigation/OverviewPage/Overview";
 import Model    from "./Nevigation/ModelPage/Model";
 import CreatePage from "./Nevigation/CreatePage/Create";
 import Device from "./Nevigation/Device/Device";
-
+import Step from "./Nevigation/Step/Step";
 function App() {
   const [userstate, setUserState] = useState({});
   return (
@@ -43,7 +43,7 @@ function App() {
           <Route path="/Model" element={<Model/>}></Route>
           <Route path="/CreatePage" element={<CreatePage/>}></Route>
           <Route path="/Device" element={<Device/>}></Route>
-
+          <Route path="/Step" element={<Step/>}></Route>
         </Routes>
       </Router>
     </div>
