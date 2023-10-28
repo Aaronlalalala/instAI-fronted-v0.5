@@ -2,7 +2,7 @@
 import React from 'react';
 import './Step.css';
 import logo from "../../image/instai_icon.png";
-
+import { NavLink } from 'react-router-dom';
 function Step() {
   return (
     <div className="app">
@@ -41,7 +41,7 @@ function Step() {
             <li>Upload training data</li>
             <li>Upload the iamge data you wish to used to train your style model</li>
         </ul>
-        <button className="upload-button">Upload</button>
+        <NavLink to='/Download2'><button className="upload-button">Upload</button></NavLink>
       </div>
       <div className="frame2">
         <ul>

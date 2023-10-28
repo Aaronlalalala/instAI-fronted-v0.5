@@ -9,3 +9,15 @@
 4. data page : 在這邊可以上傳圖片 可以從自身裝置上傳 或者從使用者的register空間抓需要使用的圖片 
 => (1)具有可以多個dataset 的並列資料圖檔庫
    
+
+
+
+路徑 : 1. login page && signup page
+       2. project page
+       3. CreatePage  => 確認好名字 跳轉到STEP
+       4. Step    => 傳輸資料 跳轉到Downlaod2 ? 確認資料傳輸好之後會轉回Step2
+       5. Step2   => fill up the form 會跳轉到requirment : 或者跳出一個文字輸入框? 反正確認好之後可以進入到Step3 
+       6. Step3   => 確認資料狀態 使用requirment2做確認
+       7. Step4   => 訓練模型 先暫時導覽到sd功能頁面 這邊設計需要討論
+       8  Step5   => 下載模型? 是模型檔案 還是只是生成的圖片 ? 
+==> 使用NavLink 做step 5階段分頁 ? => (1)改善加載問題 可使用已設計好的step css, (2) 減輕資料傳輸量 分成多步驟執行

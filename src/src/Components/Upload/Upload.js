@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-const MAX_COUNT = 5;
+const MAX_COUNT = 10;
 
 function Upload() {
   const location = useLocation();

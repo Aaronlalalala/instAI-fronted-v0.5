@@ -13,12 +13,13 @@ import Download2 from "./Components/Download2/Download";
 import CatchTXT from "./StableDiffusion/CatchTXT/CatchTXT";
 import Catchimg from "./StableDiffusion/CatchIMG/Catchimg";
 import Project  from "./Nevigation/ProjectPage/Project";
-import Datapage from "./Nevigation/DataPage/Data";
-import Overview from "./Nevigation/OverviewPage/Overview";
-import Model    from "./Nevigation/ModelPage/Model";
 import CreatePage from "./Nevigation/CreatePage/Create";
-import Device from "./Nevigation/Device/Device";
-import Step from "./Nevigation/Step/Step";
+import Step from "./Nevigation/Step1/Step";
+import Step2 from "./Nevigation/Step2/Step2";
+import Step3    from "./Nevigation/Step3/Step3";
+import Step4 from "./Nevigation/Step4/Step4";
+import Step5 from "./Nevigation/Step5/Step5";
+import Requirement from "./Nevigation/Requirment/Requirment";
 function App() {
   const [userstate, setUserState] = useState({});
   return (
@@ -38,12 +39,14 @@ function App() {
           <Route path="/CatchTXT" element={<CatchTXT/>}></Route>
           <Route path="/Catchimg" element={<Catchimg/>}></Route>
           <Route path="/Project" element={<Project/>}></Route>
-          <Route path="/Datapage" element={<Datapage/>}></Route>
-          <Route path="/Overview" element={<Overview/>}></Route>
-          <Route path="/Model" element={<Model/>}></Route>
-          <Route path="/CreatePage" element={<CreatePage/>}></Route>
-          <Route path="/Device" element={<Device/>}></Route>
+          <Route path="/Requirment" element={<Requirement/>}></Route>
           <Route path="/Step" element={<Step/>}></Route>
+          <Route path="/Step2" element={<Step2/>}></Route>
+          <Route path="/Step3" element={<Step3/>}></Route>
+          <Route path="/Step4" element={<Step4/>}></Route>
+          <Route path="/Step5" element={<Step5/>}></Route>
+          <Route path="/CreatePage" element={<CreatePage/>}></Route>
+          
         </Routes>
       </Router>
     </div>

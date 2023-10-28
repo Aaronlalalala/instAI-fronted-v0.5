@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import loginstyle from "./Download.module.css";
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
-
+import { NavLink, useLocation } from 'react-router-dom';
+// 使用step做分頁資料傳輸 這一頁是被導覽用來存儲trainig data的 所以可能需要在這一頁確認有資料傳輸到後端
+// 不是empty value後 才可以跳轉回Step2 並且STEP2之後可以確認傳輸好的DATA 
 function Download2() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -135,12 +136,12 @@ function Download2() {
       </div>
       <button onClick={handleDeleteAllPreviews}>Remove all</button>
       <button onClick={handleDownloadAll}>Download All</button>
+      <div><NavLink to="/Step2"><button>Done</button></NavLink></div>
     </div>
   );
 }
 
 export default Download2;
-
 
 
 /* import React, { useState } from 'react';

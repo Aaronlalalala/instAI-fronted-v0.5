@@ -74,8 +74,8 @@ function Create() {
           新增設備
         </button>
         <button type="submit">儲存</button>
-        <NavLink to="/OverView">
-          <button type="button">跳過</button>
+        <NavLink to="/Step">
+          <button type="button">skip</button>
         </NavLink>
         
       </form>
