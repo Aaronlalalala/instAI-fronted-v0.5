@@ -25,13 +25,13 @@ function MainPage(){
             <h1> SD Components</h1>
             <div style ={{position:'relative',right:'7px'}}>Providing the finction of SD Components</div>
             <span style ={{position:'relative',top:'60px',right:'0px'}}>
-                <NavLink to="/TXTtoIMG">TXT to IMG</NavLink>
+                <NavLink to={`/TXTtoIMG?id=${userid}`}>TXT to IMG</NavLink>
                 <br/>
                 <NavLink to="/CatchTXT">TXT2TXT img</NavLink>
             </span>
             <br/>
             <span style ={{position:'relative',top:'100px',right:'0px'}}>
-                <NavLink to="/IMGtoIMG">IMG to IMG</NavLink>
+                <NavLink to={`/IMGtoIMG?id=${userid}`}>IMG to IMG</NavLink>
                 <br/>
                 <NavLink to="/Catchimg">IMG2IMG img</NavLink>
             </span>

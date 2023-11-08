@@ -12,7 +12,6 @@ const Login = ({ setUserState }) => {
     email: "",
     password: "",
   });
-  const [userid, setuserid] = useState(null); // 添加 setuserid 状态
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -50,10 +49,9 @@ const Login = ({ setUserState }) => {
         .then((res) => {
           alert("Log in Success!");
           if (res.data.includes("Success")) {
-            setUserState(res.data.user);
+            //setUserState(res.data.user);
             const remove = "Success";
             const id = res.data.replace(remove, "");
-            setuserid(id);
             console.log(id);
             navigate("/Project", { state: id, replace: true });
           }

@@ -1,15 +1,19 @@
 import React, { useState ,useEffect } from 'react';
 import "../style/Dropdown.css";
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 function CheckPoint({ value, onChange }) {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const id = searchParams.get('id');
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(null); // 確保這裡有定義
   const [fileList, setFileList] = useState([]); // State to store the list of filenames
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/upload/checkdata?check=model&username=123`)
+      .get(`http://localhost:8080/api/upload/checkdata?check=model&username=${id}`)
       .then((response) => {
         setFileList(response.data); // Set the list of filenames received from the server
         //alert('Filenames loaded successfully');
