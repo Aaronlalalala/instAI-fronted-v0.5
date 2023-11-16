@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "./Project.css";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 
 function Project() {
+  const location = useLocation();
+  const userid = location.state;
+  const searchParams = new URLSearchParams(location.search);
+  const id = searchParams.get("id");
+  const type = searchParams.get("type");
   const navigate = useNavigate();
   const [projectList, setProjectList] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -12,7 +18,7 @@ function Project() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/project/getproject/?username=${getUserID()}`);
+        const response = await axios.get(`http://localhost:8080/api/project/getproject/?username=${type ? id : userid}`);
         setProjectList(response.data);
       } catch (error) {
         console.error(error);
@@ -25,8 +31,8 @@ function Project() {
 
   const getUserID = () => {
     // Retrieve user ID from the route
-    const pathSegments = window.location.pathname.split('/');
-    return pathSegments[pathSegments.indexOf('Project') + 1];
+    const pathSegments = type ? id : userid;
+    return pathSegments;
   };
 
   const handleDeleteProject = async (index) => {
@@ -36,7 +42,7 @@ function Project() {
 
     try {
       const response = await axios.post(
-        `http://localhost:8080/api/project/deleteproject?username=${getUserID()}`,
+        `http://localhost:8080/api/project/deleteproject?username=${type ? id : userid}`,
         { projectName: deletedProject.trim() }
       );
       alert(response.data);
@@ -78,14 +84,14 @@ function Project() {
         {filteredProjects.map((projectName, index) => (
           <div className="project" key={index}>
             <h2>{projectName}</h2>
-            <NavLink to={`/Step?id=${getUserID()}&project=${projectName}`}>
+            <NavLink to={`/Step?id=${type ? id : userid}&project=${projectName}`}>
               <p>{projectName}的詳細訊息</p>
             </NavLink>
             <button onClick={() => handleDeleteProject(index)}>刪除專案</button>
           </div>
         ))}
       </div>
-      <NavLink to={`/CreatePage?id=${getUserID()}`}>
+      <NavLink to={`/CreatePage?id=${type ? id : userid}`}>
         <button className="add-project-button">新增專案</button>
       </NavLink>
       <button onClick={handleLogout}>登出</button>

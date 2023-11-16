@@ -51,6 +51,7 @@ function Create() {
           { projectName: formData.projectName.trim() }
         );
         alert(response.data);
+        handleFormDataChange("projectName", "");
         console.log(response);
       } catch (error) {
         console.error("Error sending data to backend:", error);
@@ -99,12 +100,12 @@ function Create() {
         <button type="button" onClick={addDevice}>
           新增設備
         </button>
-        <button type="submit" onClick={addProject}>
+        <button type="button" onClick={addProject}>
           新增專案
         </button>
-        <NavLink to={`/Step?id=${id}&project=${formData.projectName}`}>
+        {/* <NavLink to={`/Step?id=${id}&project=${formData.projectName}`}>
           <button type="button">skip</button>
-        </NavLink>
+        </NavLink> */}
       </form>
     </div>
   );
