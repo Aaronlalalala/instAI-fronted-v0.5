@@ -1,50 +1,43 @@
 import React, { useState, useEffect } from "react";
 import "./Project.css";
-import { NavLink } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Project() {
-  const location = useLocation();
-  const userid = location.state;
-  const searchParams = new URLSearchParams(location.search);
-  const id = searchParams.get("id");
-  const type = searchParams.get("type");
-  const [projectList, setprojectList] = useState([]); // State to store the list of projectnames
-  //console.log(userid, id, type);
+  const navigate = useNavigate();
+  const [projectList, setProjectList] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [showLogoutPrompt, setShowLogoutPrompt] = useState(false);
+
   useEffect(() => {
-    if (type) {
-      axios
-        .get(`http://localhost:8080/api/project/getproject/?username=${id}`)
-        .then((response) => {
-          setprojectList(response.data); // Set the list of projectnames received from the server
-        })
-        .catch((error) => {
-          console.error(error);
-          console.error("文件讀取失敗");
-        });
-    } else {
-      axios
-        .get(`http://localhost:8080/api/project/getproject/?username=${userid}`)
-        .then((response) => {
-          setprojectList(response.data); // Set the list of projectnames received from the server
-        })
-        .catch((error) => {
-          console.error(error);
-          console.error("文件讀取失敗");
-        });
-    }
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/api/project/getproject/?username=${getUserID()}`);
+        setProjectList(response.data);
+      } catch (error) {
+        console.error(error);
+        console.error("文件讀取失敗");
+      }
+    };
+
+    fetchData();
   }, []);
 
-  const handleDeleteImage = async (index) => {
-    const updatedFiles = [...projectList];
-    updatedFiles.splice(index, 1);
-    setprojectList(updatedFiles);
-    console.log(projectList[index]);
+  const getUserID = () => {
+    // Retrieve user ID from the route
+    const pathSegments = window.location.pathname.split('/');
+    return pathSegments[pathSegments.indexOf('Project') + 1];
+  };
+
+  const handleDeleteProject = async (index) => {
+    const updatedProjects = [...projectList];
+    const deletedProject = updatedProjects.splice(index, 1)[0];
+    setProjectList(updatedProjects);
+
     try {
       const response = await axios.post(
-        `http://localhost:8080/api/project/deleteproject?username=${type ? id : userid}`,
-        { projectName: projectList[index].trim() } // Send data in the request body as an object
+        `http://localhost:8080/api/project/deleteproject?username=${getUserID()}`,
+        { projectName: deletedProject.trim() }
       );
       alert(response.data);
       console.log(response);
@@ -53,51 +46,61 @@ function Project() {
     }
   };
 
+  const handleLogout = () => {
+    setShowLogoutPrompt(true);
+  };
+
+  const handleConfirmLogout = () => {
+    setShowLogoutPrompt(false);
+    navigate("/"); // Redirect to the home page
+  };
+
+  const handleCancelLogout = () => {
+    setShowLogoutPrompt(false);
+  };
+
+  const filteredProjects = projectList.filter(project =>
+    project.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="project-page">
-      <div className="header">
-        <div className="user-info">
-          <span>客戶權限: ???</span>
-          <span>帳戶名稱: Justin</span>
-        </div>
-        <div className="account-actions">
-          <button>設置</button>
-          <NavLink to="/"><button>登出</button></NavLink>
-          
-        </div>
-      </div>
       <h1>Project Page</h1>
+      <div className="search-bar">
+        <input
+          type="text"
+          placeholder="搜尋專案"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
       <div className="project-list">
-      
-        {projectList.map((projectname, index) => (
-          // <NavLink to={`/Step?id=${type?id:userid}&project=${projectname}`}>
+        {filteredProjects.map((projectName, index) => (
           <div className="project" key={index}>
-            <h2>{projectname}</h2>
-            <NavLink
-              to={`/Step?id=${type ? id : userid}&project=${projectname}`}
-            >
-              <p>{projectname}的詳細訊息</p>
+            <h2>{projectName}</h2>
+            <NavLink to={`/Step?id=${getUserID()}&project=${projectName}`}>
+              <p>{projectName}的詳細訊息</p>
             </NavLink>
-            <button onClick={() => handleDeleteImage(index)}>刪除專案</button>
+            <button onClick={() => handleDeleteProject(index)}>刪除專案</button>
           </div>
-          //</NavLink>
         ))}
       </div>
-      {type ? (
-        <NavLink to={`/CreatePage?id=${id}`}>
-          <button className="add-project-button">新增專案</button>
-        </NavLink>
-      ) : (
-        <NavLink to={`/CreatePage?id=${userid}`}>
-          <button className="add-project-button">新增專案</button>
-        </NavLink>
-      )}
-      {/* <NavLink to={`/CreatePage?id=${type === "1" ? id : userid}`}>
+      <NavLink to={`/CreatePage?id=${getUserID()}`}>
         <button className="add-project-button">新增專案</button>
-      </NavLink> */}
+      </NavLink>
+      <button onClick={handleLogout}>登出</button>
+      <button>設置</button>
+
+      {/* Logout Prompt */}
+      {showLogoutPrompt && (
+        <div className="logout-prompt">
+          <p>確定要登出嗎？</p>
+          <button onClick={handleConfirmLogout}>確定</button>
+          <button onClick={handleCancelLogout}>取消</button>
+        </div>
+      )}
     </div>
   );
 }
 
 export default Project;
-

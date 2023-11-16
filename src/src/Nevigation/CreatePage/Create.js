@@ -8,6 +8,7 @@ function Create() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const id = searchParams.get('id');
+
   const [formData, setFormData] = useState({
     projectName: "",
     devices: [],
@@ -39,7 +40,7 @@ function Create() {
     }));
   };
 
-  const addproject = async () => {
+  const addProject = async () => {
     if (formData.projectName.trim() === "") {
       alert("請輸入專案名稱");
     } else {
@@ -47,7 +48,7 @@ function Create() {
       try {
         const response = await axios.post(
           `http://localhost:8080/api/project/addproject?username=${id}`,
-          { projectName: formData.projectName.trim() } // Send data in the request body as an object
+          { projectName: formData.projectName.trim() }
         );
         alert(response.data);
         console.log(response);
@@ -72,9 +73,7 @@ function Create() {
             type="text"
             name="projectName"
             value={formData.projectName}
-            onChange={(e) =>
-              handleFormDataChange("projectName", e.target.value)
-            }
+            onChange={(e) => handleFormDataChange("projectName", e.target.value)}
           />
         </div>
         <div>
@@ -86,17 +85,13 @@ function Create() {
                 type="text"
                 placeholder="序列號"
                 value={device.serialNumber}
-                onChange={(e) =>
-                  handleDeviceChange(index, "serialNumber", e.target.value)
-                }
+                onChange={(e) => handleDeviceChange(index, "serialNumber", e.target.value)}
               />
               <input
                 type="text"
                 placeholder="名稱"
                 value={device.deviceName}
-                onChange={(e) =>
-                  handleDeviceChange(index, "deviceName", e.target.value)
-                }
+                onChange={(e) => handleDeviceChange(index, "deviceName", e.target.value)}
               />
             </div>
           ))}
@@ -104,7 +99,7 @@ function Create() {
         <button type="button" onClick={addDevice}>
           新增設備
         </button>
-        <button type="button" onClick={() => addproject()}>
+        <button type="submit" onClick={addProject}>
           新增專案
         </button>
         <NavLink to={`/Step?id=${id}&project=${formData.projectName}`}>
