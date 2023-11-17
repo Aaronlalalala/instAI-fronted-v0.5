@@ -1,9 +1,9 @@
 1. cd src 
 2. npm i --legacy-peer-deps
-3. npm run build
-4. cd ..
-5  npm i --legacy-peer-deps
+3. npm start 
 
+
+//如果還沒有創建mysql table 以及database 
 執行完畢後 打開MYSQL COMMAND LINE 創建DB及TABLE
  FOR LOGIN/REGISTER 以下指令
 
@@ -21,8 +21,9 @@ CREATE TABLE test.photo(
     image_data LONGBLOB NOT NULL
 );
 接下來回到terminal 
+
+// 可直接跳到這邊
 隨後就可以打開專案 npm start ，同時開啟後端，成功後會在後端terminal看到 Connected to MYSQL database
-打開以下網址: localhost:3000
 
 
 
