@@ -29,13 +29,12 @@ function Project() {
     fetchData();
   }, []);
 
-  const getUserID = () => {
-    // Retrieve user ID from the route
-    const pathSegments = type ? id : userid;
-    return pathSegments;
-  };
-
   const handleDeleteProject = async (index) => {
+    const confirmDelete = window.confirm("確定要刪除專案?");
+    if (!confirmDelete) {
+      return;
+    }
+
     const updatedProjects = [...projectList];
     const deletedProject = updatedProjects.splice(index, 1)[0];
     setProjectList(updatedProjects);
@@ -53,7 +52,12 @@ function Project() {
   };
 
   const handleLogout = () => {
-    setShowLogoutPrompt(true);
+    //setShowLogoutPrompt(true);
+    const confirmlogout = window.confirm("確定要登出嗎？");
+    if (!confirmlogout) {
+      return;
+    }
+    navigate("/"); // Redirect to the home page
   };
 
   const handleConfirmLogout = () => {
