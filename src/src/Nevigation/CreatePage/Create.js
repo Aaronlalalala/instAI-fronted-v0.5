@@ -100,10 +100,11 @@ function Create() {
         <button type="button" onClick={addDevice}>
           新增設備
         </button>
+        
         <button type="button" onClick={addProject}>
           新增專案
         </button>
-        {/* <NavLink to={`/Step?id=${id}&project=${formData.projectName}`}>
+        { /* <NavLink to={`/Step?id=${id}&project=${formData.projectName}`}>
           <button type="button">skip</button>
         </NavLink> */}
       </form>

@@ -2,7 +2,7 @@ import React from 'react';
 import './Step.css';
 import logo from "../../image/instai_icon.png";
 import { NavLink } from 'react-router-dom';
-
+// 每一個user 的download2 需要注意甚麼 後端是否會分配userid的網址? 
 function Step() {
   return (
     <div className="app">
@@ -50,7 +50,7 @@ function Step() {
           <li>Provide your training requirements</li>
           <li>Tell us your specific needs for AI model training</li>
         </ul>
-        <button className="upload-buttonNo2" >Fill out the form</button>
+        <NavLink to="/Requirment"><button className="upload-buttonNo2" >Fill out the form</button></NavLink>
       </div>
 
       <div className="frameNo3">

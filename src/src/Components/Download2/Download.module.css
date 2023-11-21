@@ -37,3 +37,8 @@ input{
     position: sticky;
     top: 80px;
 }
+.preview-image {
+    width: 150px;
+    height: 150px;
+  }
+  

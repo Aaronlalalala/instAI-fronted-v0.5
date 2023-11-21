@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios"; 
-import Prompt from "../../Components/Prompt/Prompt";
-import {NavLink} from "react-router-dom";
+import Prompt from "../../Components/Prompt/Prompt2";
+import { NavLink } from "react-router-dom";
+
 function Requirement() {
   const [reqData, setReqData] = useState({
     req: "",
-    // req可以继续添加，只要确定好问题就好
   });
 
   const handleFormDataChange = (fieldName, value) => {
@@ -16,7 +16,7 @@ function Requirement() {
     console.log(`Field ${fieldName} updated to:`, value);
   };
 
-  const handleGenerateClick = () => {
+  const handleGenerateClick = async () => {
     const confirmed = window.confirm("确定要提交吗?");
     if (confirmed) {
       const requestData = {
@@ -26,19 +26,24 @@ function Requirement() {
           message: "傳輸成功",
         },
       };
-      jsonFunction(requestData);
+      try {
+        await jsonFunction(requestData);
+      } catch (error) {
+        console.error("提交失敗:", error);
+        // 在這裡你可以根據不同的錯誤情況提供用戶更具體的反饋
+        if (error.response) {
+          alert(`提交失敗，錯誤狀態碼：${error.response.status}`);
+        } else {
+          alert("提交失敗，請檢查網絡連接或稍後重試。");
+        }
+      }
     }
   };
 
   async function jsonFunction(reqData) {
-    try {
-      const response = await axios.post("API路徑", reqData.request); 
-      alert("轉換成功");
-  
-    } catch (error) {
-      console.log("数据出错:", error);
-    
-    }
+    const response = await axios.post("彥君記得改這裡", reqData.request);
+    console.log("server response:", response.data);
+    alert("change sucessefully");
   }
 
   return (
@@ -49,7 +54,6 @@ function Requirement() {
       <br/>
       <NavLink to="/Step3"><button>done</button></NavLink>
     </div>
-
   );
 }
 
