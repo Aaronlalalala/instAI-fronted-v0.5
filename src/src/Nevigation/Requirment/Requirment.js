@@ -47,12 +47,17 @@ function Requirement() {
   }
 
   return (
-    <div>
+    <div className="container">
       <h2>問題1</h2>
-      <Prompt value={reqData.req} onChange={(value) => handleFormDataChange("req", value)} />
-      <button onClick={handleGenerateClick}>提交</button>
-      <br/>
-      <NavLink to="/Step3"><button>done</button></NavLink>
+      
+      <div className="button-group">
+        <button onClick={handleGenerateClick}>提交</button>
+        <br/>
+        <NavLink to="/Step"><button>done</button></NavLink> {/**/ }
+      </div>
+      <div className="prompt">
+      <Prompt value={reqData.req} onChange={(value) => handleFormDataChange("req", value)} /> 
+      </div>
     </div>
   );
 }
