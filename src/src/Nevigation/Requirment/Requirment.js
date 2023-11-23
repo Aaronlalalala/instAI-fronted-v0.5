@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios"; 
-import Prompt from "../../Components/Prompt/Prompt2";
+import Prompt2 from "../../Components/Prompt/Prompt2";
 import { NavLink } from "react-router-dom";
 
 function Requirement() {
@@ -56,7 +56,7 @@ function Requirement() {
         <NavLink to="/Step"><button>done</button></NavLink> {/**/ }
       </div>
       <div className="prompt">
-      <Prompt value={reqData.req} onChange={(value) => handleFormDataChange("req", value)} /> 
+      <Prompt2 value={reqData.req} onChange={(value) => handleFormDataChange("req", value)} /> 
       </div>
     </div>
   );

@@ -15,7 +15,7 @@ import Catchimg from "./StableDiffusion/CatchIMG/Catchimg";
 import Project  from "./Nevigation/ProjectPage/Project";
 import CreatePage from "./Nevigation/CreatePage/Create";
 import Step from "./Nevigation/Step1/Step";
-
+import Conversation from "../src/Nevigation/Conversation/Conversation";
 import Requirement from "./Nevigation/Requirment/Requirment";
 function App() {
   const [userstate, setUserState] = useState({});
@@ -39,6 +39,7 @@ function App() {
           <Route path="/Requirment" element={<Requirement/>}></Route>
           <Route path="/Step" element={<Step/>}></Route>
           <Route path="/CreatePage" element={<CreatePage/>}></Route>
+          <Route path="/Conversation" element={<Conversation/>}></Route>
           
         </Routes>
       </Router>

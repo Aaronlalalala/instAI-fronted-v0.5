@@ -100,6 +100,7 @@ function Project() {
       </NavLink>
       <button onClick={handleLogout}>登出</button>
       <button>設置</button>
+      <NavLink to="/Conversation"><button>Conversation</button></NavLink>
 
       {/* Logout Prompt */}
       {showLogoutPrompt && (
