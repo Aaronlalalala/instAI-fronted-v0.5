@@ -7,11 +7,11 @@ function Download2() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const id = searchParams.get('id');
+  const projectname = searchParams.get('projectname');
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
   const [username, setUsername] = useState("");  // 沒有使用到 
   const [filename, setFilename] = useState(""); 
-
   // 文件選擇
   const handleFileSelect = async (event) => {
     const files = event.target.files;
@@ -38,7 +38,6 @@ function Download2() {
         .then(response => {
           console.log(response.data);
           alert('download success')
-          const downloadedFilename = response.headers['x-filename'];
 
           const url = window.URL.createObjectURL(new Blob([response.data]));
           const a = document.createElement('a');
@@ -101,6 +100,34 @@ function Download2() {
     });
   };
 
+  const handleupload = async () => {
+    const confirmDelete = window.confirm("確定要上傳圖片?");
+    if (!confirmDelete) {
+      return;
+    }
+    const uploaded = [...selectedFiles];
+    const formData = new FormData();
+    for(let i =0;i<uploaded.length;++i){
+      formData.append('file', uploaded[i]);
+    }
+
+    try {
+      const response = await axios.post(`http://localhost:8080/api/upload/upload?username=${id}&projectname=${projectname}`, formData)
+      .then(response => {
+        console.log(response.data);
+        // Handle success
+        alert('upload success')
+      })
+      .catch(error => {
+        console.error(error);
+        // Handle error
+      });
+      console.log(response);
+    } catch (error) {
+      console.error("Error sending data to backend:", error);
+    }
+  };
+
   return (
     <div className={loginstyle.background}>
       <h1>UPLOAD/DOWNLOAD</h1>
@@ -120,7 +147,7 @@ function Download2() {
       </div>
       <button onClick={handleDeleteAllPreviews}>Remove all</button>
       <button onClick={handleDownloadAll}>Download All</button>
-      <div><NavLink to="/Step?id=${type ? id : userid}&project=${projectName}"><button>Done</button></NavLink></div>
+      <div><NavLink to={`/Step?id=${id}&project=${projectname}`}><button onClick={handleupload}>Done</button></NavLink></div>
     </div>
   );
 }

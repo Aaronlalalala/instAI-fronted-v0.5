@@ -1,9 +1,13 @@
 import React from 'react';
 import './Step.css';
 import logo from "../../image/instai_icon.png";
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 // 每一個user 的download2 需要注意甚麼 後端是否會分配userid的網址? 
 function Step() {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const userid = searchParams.get('id');
+  const projectname = searchParams.get('project');
   return (
     <div className="app">
       <header className="nav">
@@ -42,7 +46,7 @@ function Step() {
           <li>Upload training data</li>
           <li>Upload the image data you wish to use to train your style model</li>
         </ul>
-        <NavLink to='/Download2'><button className="upload-buttonNo1">Upload</button></NavLink>
+        <NavLink to={`/Download2?id=${userid}&projectname=${projectname}`}><button className="upload-buttonNo1">Upload</button></NavLink>
       </div>
 
       <div className="frameNo2 ">
@@ -50,7 +54,7 @@ function Step() {
           <li>Provide your training requirements</li>
           <li>Tell us your specific needs for AI model training</li>
         </ul>
-        <NavLink to="/Requirment"><button className="upload-buttonNo2" >Fill out the form</button></NavLink>
+        <NavLink to={`/Requirment?id=${userid}&projectname=${projectname}`}><button className="upload-buttonNo2" >Fill out the form</button></NavLink>
       </div>
 
       <div className="frameNo3">
