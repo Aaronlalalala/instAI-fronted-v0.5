@@ -39,7 +39,8 @@ function App() {
           <Route path="/Requirment" element={<Requirement/>}></Route>
           <Route path="/Step" element={<Step/>}></Route>
           <Route path="/CreatePage" element={<CreatePage/>}></Route>
-          
+          {/*<Route path="/CheckData" element={<CheckData/>}></Route>
+          <Route path="/CheckReq" element={<CheckReq/>}></Route> */}
         </Routes>
       </Router>
     </div>
