@@ -61,9 +61,9 @@ function Requirement() {
   }
 
   return (
-    <div className="container">
-      <h2>問題1</h2>
-      <div className="prompt">
+    <div >
+      <h1>Requirment</h1>
+      <div >
       <Prompt value={reqData.req} onChange={(value) => handleFormDataChange("req", value)} /> 
       </div>
       <div className="button-group">
@@ -74,6 +74,7 @@ function Requirement() {
         <NavLink to={`/Step?id=${id}&project=${projectname}`}><button>返回前頁</button></NavLink>
       </div>
     </div>
+   
   );
 }
 

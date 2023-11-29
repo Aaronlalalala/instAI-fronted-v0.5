@@ -1,3 +1,5 @@
+/*prompt css */
+
 
 .input-container {
   position: relative;
@@ -6,10 +8,11 @@
 
 .input-field {
   width: 80%;
-  max-width: 600px; 
-  height: auto; 
+  max-width: auto; 
+  height: 600PX ; 
+  max-height:auto;
   padding: 15px; 
-  margin: 10px 0;
+  margin: 5px 0;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;

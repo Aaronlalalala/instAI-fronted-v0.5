@@ -19,7 +19,7 @@ const Prompt2 = ({ onChange }) => {
 
   return (
     <div className="input-container">
-      <h3>Prompt</h3>
+      
       <textarea
         className="input-field"
         placeholder="請輸入"

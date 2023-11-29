@@ -3,6 +3,8 @@ import loginstyle from "./Download.module.css";
 import axios from 'axios';
 import { NavLink, useLocation } from 'react-router-dom';
 import "./Download.module.css";
+
+
 function Download2() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -18,7 +20,7 @@ function Download2() {
     const fileArray = Array.from(files);
 
     // 過濾文件
-    const allowedFileTypes = ['image/jpeg', 'image/png'];
+    const allowedFileTypes = ['image/jpeg', 'image/png',"image/jpeg"];
     const filteredFiles = fileArray.filter((file) =>
       allowedFileTypes.includes(file.type)
     );
@@ -49,10 +51,10 @@ function Download2() {
         })
         .catch(error => {
           console.error(error);
-          console.error('文件上傳失敗');
+          console.error('Upload failure');
         });
     } catch (error) {
-      console.error('发生错误:', error);
+      console.error('ERROR:', error);
     }
 
     const previews = filteredFiles.map((file) => URL.createObjectURL(file));
@@ -139,6 +141,7 @@ function Download2() {
               src={preview}
               alt={`image ${index}`}
               style={{ width: '250px', height: '300px' }}
+              loading='lazy'
             />
             <button onClick={() => handleDeleteImage(index)}>刪除</button>
             <button onClick={() => handleDownload(selectedFiles[index])}>Download</button>
