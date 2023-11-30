@@ -4,7 +4,6 @@ import axios from 'axios';
 import { NavLink, useLocation } from 'react-router-dom';
 import "./Download.module.css";
 
-
 function Download2() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -12,56 +11,49 @@ function Download2() {
   const projectname = searchParams.get('projectname');
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
-  const [username, setUsername] = useState("");  // 沒有使用到 
-  const [filename, setFilename] = useState(""); 
-  // 文件選擇
+  const [confirmSubmission, setConfirmSubmission] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [editingMode, setEditingMode] = useState(false);
+
+  // Handle file selection
   const handleFileSelect = async (event) => {
     const files = event.target.files;
     const fileArray = Array.from(files);
 
-    // 過濾文件
-    const allowedFileTypes = ['image/jpeg', 'image/png',"image/jpeg"];
+    // Filter files
+    const allowedFileTypes = ['image/jpeg', 'image/png', 'image/jpeg'];
     const filteredFiles = fileArray.filter((file) =>
       allowedFileTypes.includes(file.type)
     );
-   
+
     const fileNames = filteredFiles.map((file) => file.name);
 
-    setFilename(fileNames);
     setSelectedFiles(filteredFiles);
 
     try {
-      console.log('发送请求到URL:', 'http://localhost:8080/api/upload/download');//?filename=${filename}&username=${username}
-      // const response = await fetch('http://localhost:8080/api/upload/download', {
-      //   method: 'GET',
-      //   body: formData,
-      // });
-      axios.get(`http://localhost:8080/api/upload/download?filename=${fileNames}&username=${id}`, { responseType: 'blob' })
-        .then(response => {
-          console.log(response.data);
-          alert('download success')
-
-          const url = window.URL.createObjectURL(new Blob([response.data]));
-          const a = document.createElement('a');
-          a.href = url;
-          a.setAttribute("download",filename);
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-        })
-        .catch(error => {
-          console.error(error);
-          console.error('Upload failure');
-        });
+      const previews = filteredFiles.map((file) => URL.createObjectURL(file));
+      setImagePreviews([...previews]);
     } catch (error) {
-      console.error('ERROR:', error);
+      console.error('Error:', error);
     }
-
-    const previews = filteredFiles.map((file) => URL.createObjectURL(file));
-    setImagePreviews([...imagePreviews, ...previews]);
   };
 
-  // 文件下載 //modified
+  // Handle deleting images
+  const handleDeleteImage = (index) => {
+    if (!confirmSubmission) {
+      const updatedFiles = [...selectedFiles];
+      const updatedPreviews = [...imagePreviews];
+  
+      updatedFiles.splice(index, 1);
+      updatedPreviews.splice(index, 1);
+  
+      setSelectedFiles(updatedFiles);
+      setImagePreviews(updatedPreviews);
+    }
+  };
+
+  // Handle downloading files
   const handleDownload = (file) => {
     const a = document.createElement('a');
     a.href = window.URL.createObjectURL(new Blob([file]));
@@ -71,68 +63,50 @@ function Download2() {
     document.body.removeChild(a);
   };
 
-  // 處理刪除單一圖片
-  const handleDeleteImage = (index) => {
-    const updatedFiles = [...selectedFiles];
-    const updatedPreviews = [...imagePreviews];
-
-    updatedFiles.splice(index, 1); 
-    updatedPreviews.splice(index, 1); 
-
-    setSelectedFiles(updatedFiles);
-    setImagePreviews(updatedPreviews);
+  // Confirm submission
+  const handleConfirmSubmission = () => {
+    setConfirmSubmission(true);
+    setShowModal(true);
   };
 
-  // 刪除預覽
-  const handleDeleteAllPreviews = () => {
-    setImagePreviews([]);
-    setSelectedFiles([]);
+  // Cancel submission
+  const handleCancelSubmission = () => {
+    setConfirmSubmission(false);
+    setShowModal(false);
+    setEditingMode(true); // Enter editing mode
   };
 
-  // 下載預覽 //modified
-  const handleDownloadAll = () => {
-    selectedFiles.forEach((file) => {
-      const a = document.createElement('a');
-      a.href = window.URL.createObjectURL(new Blob([file]));
-      console.log(a.href)
-      a.setAttribute("download", file.name);
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    });
+  // Back to edit
+  const handleBackToEdit = () => {
+    setConfirmSubmission(false);
+    setShowModal(false);
+    setEditingMode(true); // Enter editing mode
   };
 
+  // Handle upload logic
   const handleupload = async () => {
-    const confirmDelete = window.confirm("確定要上傳圖片?");
+    const confirmDelete = window.confirm("Are you sure you want to upload the image?");
     if (!confirmDelete) {
       return;
     }
-    const uploaded = [...selectedFiles];
+
     const formData = new FormData();
-    for(let i =0;i<uploaded.length;++i){
-      formData.append('file', uploaded[i]);
+    for (let i = 0; i < selectedFiles.length; ++i) {
+      formData.append('file', selectedFiles[i]);
     }
 
     try {
-      const response = await axios.post(`http://localhost:8080/api/upload/upload?username=${id}&projectname=${projectname}`, formData)
-      .then(response => {
-        console.log(response.data);
-        // Handle success
-        alert('upload success')
-      })
-      .catch(error => {
-        console.error(error);
-        // Handle error
-      });
-      console.log(response);
+      const response = await axios.post(`http://localhost:8080/api/upload/upload?username=${id}&projectname=${projectname}`, formData);
+      console.log(response.data);
+      alert('Upload successful');
     } catch (error) {
-      console.error("Error sending data to backend:", error);
+      console.error("Transmission error:", error);
     }
   };
 
   return (
     <div className={loginstyle.background}>
-      <h1>UPLOAD/DOWNLOAD</h1>
+      <h1>Upload/Download</h1>
       <input type="file" accept="image/*" multiple name="images" onChange={handleFileSelect} />
       <div className="previews">
         {imagePreviews.map((preview, index) => (
@@ -142,20 +116,60 @@ function Download2() {
               alt={`image ${index}`}
               style={{ width: '250px', height: '300px' }}
               loading='lazy'
+              onClick={() => {
+                setShowModal(true);
+                setSelectedImageIndex(index);
+              }}
             />
-            <button onClick={() => handleDeleteImage(index)}>刪除</button>
+            <button onClick={() => handleDeleteImage(index)}>Delete</button>
             <button onClick={() => handleDownload(selectedFiles[index])}>Download</button>
           </span>
         ))}
       </div>
-      <button onClick={handleDeleteAllPreviews}>Remove all</button>
-      <button onClick={handleDownloadAll}>Download All</button>
-      <div><NavLink to={`/Step?id=${id}&project=${projectname}`}><button onClick={handleupload}>Done</button></NavLink></div>
+      <button onClick={handleConfirmSubmission}>Confirm Submission</button>
+      {confirmSubmission && (
+        <div>
+          <h2>Confirm Submission</h2>
+          <div>
+            {selectedFiles.map((file, index) => (
+              <span key={index}>
+                {file.name}
+                <img
+                  src={URL.createObjectURL(file)}
+                  alt={`preview ${index}`}
+                  style={{
+                    maxWidth: '100%',
+                    maxHeight: '100%',
+                    cursor: 'pointer'
+                  }}
+                  onClick={() => {
+                    setShowModal(true);
+                    setSelectedImageIndex(index);
+                  }}
+                />
+                <br />
+              </span>
+            ))}
+          </div>
+          <NavLink to={`/Step?id=${id}&project=${projectname}`}>
+            <button onClick={handleupload}>Finish</button>
+          </NavLink>
+          <button onClick={handleBackToEdit}>Back to Edit</button>
+        </div>
+      )}
+
+      {showModal && (
+        <div className="modal">
+          <span className="close" onClick={() => setShowModal(false)}>&times;</span>
+          <img
+            src={URL.createObjectURL(selectedFiles[selectedImageIndex])}
+            alt={`preview ${selectedImageIndex}`}
+            style={{ width: '100%', height: '100%' }}
+          />
+        </div>
+      )}
     </div>
   );
 }
 
 export default Download2;
-
-
-
