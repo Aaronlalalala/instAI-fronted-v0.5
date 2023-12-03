@@ -70,17 +70,32 @@ function Requirement() {
   return (
     <div>
       <h1>Requirment問題1:What is the type of location/environment that the AI model will be used?</h1>
-      <div>
+      <div className="prompt">
         <Prompt value={reqData.req} onChange={(value) => handleFormDataChange("req", value)} />
       </div>
       <div className="button-group">
         {/* ------------------------------------------------------------------------- */}
-        {isDataChecked ? (
+        {/* {isDataChecked ? (
           <button onClick={handleSendData}>提交</button>
+          {linktostep?(<NavLink to={`/Step?id=${id}&project=${projectname}`}><button onClick={handleSendData}>提交
+        </button></NavLink>):(<button onClick={handleSendData}>提交</button>)}
         ) : (
-          <button onClick={handleGenerateClick}>生成並检查</button>
+          <button onClick={handleGenerateClick}>生成並檢查</button>
+        )} */}
+        {isDataChecked ? (
+          <>
+          {linktostep ? (
+            <NavLink to={`/Step?id=${id}&project=${projectname}`}>
+              <button onClick={handleSendData}>提交</button>
+            </NavLink>
+          ) : (
+            <button onClick={handleSendData}>提交</button>
+          )}
+          </>
+          ) : (
+            <button onClick={handleGenerateClick}>生成並檢查</button>
         )}
-        
+
         <br/>
         <NavLink to={`/Step?id=${id}&project=${projectname}`}><button>返回前頁</button></NavLink>
       </div>
