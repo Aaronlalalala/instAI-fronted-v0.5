@@ -41,7 +41,8 @@ function Requirement() {
   const handleSendData = async () => {
     const requestData = {
       method: "POST",
-      request: reqData, 
+      request: reqData,
+      question: "What is the type of location/environment that the AI model will be used?", 
       response: {
         message: "傳輸成功",
       },
@@ -68,7 +69,7 @@ function Requirement() {
 
   return (
     <div>
-      <h1>Requirment</h1>
+      <h1>Requirment問題1:What is the type of location/environment that the AI model will be used?</h1>
       <div>
         <Prompt value={reqData.req} onChange={(value) => handleFormDataChange("req", value)} />
       </div>
